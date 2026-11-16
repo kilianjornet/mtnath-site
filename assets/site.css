@@ -68,8 +68,8 @@ tr:last-child td { border-bottom: 0; }
 mark.todo { background: #ffe58a; color: #3a2a00; padding: 0 4px; border-radius: 3px; }
 
 /* ---- Contact ---- */
-.contacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 28px; }
-.contacts .panel a.mail { font-weight: 700; word-break: break-all; }
+.contact-one { margin-top: 28px; max-width: 620px; }
+.contact-one a.mail { font: 600 clamp(24px, 5vw, 32px)/1.2 var(--display); letter-spacing: 1px; text-decoration: none; }
 
 /* ---- Footer ---- */
 .sitefoot { border-top: 1px solid var(--line); background: var(--paper); color: var(--muted); font-size: 14px; }

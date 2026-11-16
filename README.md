@@ -8,7 +8,7 @@ Plain HTML and CSS, no build step. The app itself lives at **app.mtnath.com** (r
 /instructions/       instructions/       User guide for app.mtnath.com (images in instructions/img/)
 /methods/            methods/            Open methods: GAP, gut model, lab tests (CC BY 4.0)
 /legal/              legal/              Privacy policy, terms of use, legal notice
-/contact/            contact/            Contact addresses
+/contact/            contact/            Contact: lab@mtnath.com
 /404.html                                Shown for missing pages (old WordPress links)
 assets/site.css                          Styles for Home, Legal, Contact, 404
 assets/sitebar.css                       The top bar on every page (standalone)
@@ -20,8 +20,7 @@ vercel.json / _redirects                 Redirects from old WordPress URLs + hea
 1. **Fill the placeholders.** Search for `TODO` (they show highlighted in yellow on the Legal page):
    - Legal: legal name / company and org. number, address, Supabase and Vercel regions,
      sign-in email provider, backup and log retention, minimum age, price model, venue.
-   - Contact: confirm the addresses `support@`, `methods@`, `hello@`, `privacy@mtnath.com` exist
-     (they can all forward to one inbox).
+   - Email: create `lab@mtnath.com` (the only address used on the site: Contact and Legal).
 2. **Have the Legal page checked.** It is a draft written from what the app does today
    (Supabase, Vercel, Anthropic for food and lab-report reading, COROS, Withings, Claude connector,
    coach links). Health data is a special category under GDPR, so a short review by a
