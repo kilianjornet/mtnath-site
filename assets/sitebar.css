@@ -1,0 +1,22 @@
+/* MTNATH site bar — standalone, so it can sit on top of pages with their own styles (Instructions, Methods). */
+.sitebar {
+  --sb-paper: #fffdf8; --sb-ink: #14231c; --sb-muted: #5d6b63; --sb-green: #1f6b4a; --sb-line: #e2ddd0; --sb-btn-ink: #fff;
+  background: var(--sb-paper); border-bottom: 1px solid var(--sb-line); position: relative; z-index: 5;
+  font: 15px/1.4 "Public Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  .sitebar { --sb-paper: #14231c; --sb-ink: #eceae2; --sb-muted: #a3b0a8; --sb-green: #6cc79a; --sb-line: #2a3a31; --sb-btn-ink: #0d1612; }
+}
+.sitebar .in { max-width: 1240px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 8px 22px; flex-wrap: wrap; }
+.sitebar .logo { font: 600 20px/1 Oswald, "Arial Narrow", Arial, sans-serif; letter-spacing: 2px; color: var(--sb-green); text-decoration: none; margin-right: auto; }
+.sitebar nav { display: flex; flex-wrap: wrap; gap: 4px 18px; position: static; max-height: none; overflow: visible; padding: 0; }
+.sitebar nav a { color: var(--sb-muted); text-decoration: none; padding: 4px 0; margin: 0; border: 0; border-bottom: 2px solid transparent; font-size: 15px; display: inline; }
+.sitebar nav a:hover, .sitebar nav a[aria-current] { color: var(--sb-ink); border-bottom-color: var(--sb-green); }
+.sitebar .cta { background: var(--sb-green); color: var(--sb-btn-ink); text-decoration: none; font-weight: 700; font-size: 14px; padding: 8px 14px; border-radius: 8px; }
+.sitebar a:focus-visible { outline: 2px solid var(--sb-green); outline-offset: 2px; }
+@media (max-width: 640px) {
+  .sitebar .in { padding: 10px 16px; }
+  .sitebar nav { order: 3; width: 100%; flex-wrap: nowrap; overflow-x: auto; gap: 18px; }
+  .sitebar nav a { white-space: nowrap; }
+}
+@media print { .sitebar { display: none; } }

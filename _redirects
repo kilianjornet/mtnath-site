@@ -1,0 +1,7 @@
+# Same redirects for Cloudflare Pages or Netlify (ignored by Vercel, which uses vercel.json).
+/trailrunning-tests      https://app.mtnath.com  301
+/trailrunning-tests/*    https://app.mtnath.com  301
+/wp-login.php            https://app.mtnath.com  301
+/wp-admin/*              /                       301
+/privacy-policy          /legal/#privacy         301
+/feed/*                  /                       301

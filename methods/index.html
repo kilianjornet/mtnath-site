@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open methods · MTNATH</title>
+<meta name="description" content="The exact formulas MTNATH uses for grade-adjusted pace, the gut (GI) distress model and lab-test analysis. CC BY 4.0.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/sitebar.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Oswald:wght@600&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, svg: { fontCache: 'global' } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<style>
+  /* Layout: one reading column with a sticky contents rail on wide screens; methods as numbered sections with formula blocks and parameter tables. */
+  :root {
+    --bg: #f6f7f5;
+    --surface: #ffffff;
+    --ink: #1b2420;
+    --muted: #5b6862;
+    --line: #dde3df;
+    --accent: #1f6f4a;
+    --accent-soft: #e3efe8;
+    --note: #fff6e0;
+    --note-line: #e7c873;
+    --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121815; --surface: #19211d; --ink: #e6ece8; --muted: #9aa9a1; --line: #2c3833;
+      --accent: #5fbf8d; --accent-soft: #1d3329; --note: #2b2615; --note-line: #8a7433;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121815; --surface: #19211d; --ink: #e6ece8; --muted: #9aa9a1; --line: #2c3833;
+    --accent: #5fbf8d; --accent-soft: #1d3329; --note: #2b2615; --note-line: #8a7433;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--ink); font: 16px/1.6 var(--font-body); }
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  header.top { background: var(--surface); border-bottom: 1px solid var(--line); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+  header.top .wrap { padding-top: 36px; padding-bottom: 28px; display: grid; gap: 10px; }
+  .kicker { font: 500 13px/1.3 var(--font-mono); color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
+  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.2; margin: 0; }
+  h1 { font-size: clamp(30px, 5vw, 44px); font-weight: 650; }
+  h2 { font-size: 28px; font-weight: 650; }
+  h3 { font-size: 20px; font-weight: 650; margin-top: 8px; }
+  .lede { max-width: 68ch; color: var(--muted); font-size: 18px; margin: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+  .layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; padding-top: 32px; padding-bottom: 64px; }
+  nav.toc { position: sticky; top: 20px; align-self: start; font-size: 14px; display: grid; gap: 4px; }
+  nav.toc a { text-decoration: none; color: var(--muted); padding: 4px 8px; border-left: 2px solid var(--line); }
+  nav.toc a:hover { color: var(--ink); border-left-color: var(--accent); }
+  nav.toc .sub { padding-left: 18px; font-size: 13px; }
+  main { display: grid; gap: 48px; min-width: 0; }
+  section.method { display: grid; gap: 18px; }
+  section.method > header { display: grid; gap: 6px; padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
+  .num { font: 500 13px/1 var(--font-mono); color: var(--accent); }
+  p { margin: 0; max-width: 70ch; }
+  .block { display: grid; gap: 12px; }
+  .formula { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 6px; padding: 10px 16px; overflow-x: auto; }
+  .formula mjx-container { margin: 6px 0 !important; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
+  .tbl { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+  th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 600; background: var(--accent-soft); white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  td.n, th.n { text-align: right; }
+  code { font: 14px var(--font-mono); background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+  ul, ol { margin: 0; padding-left: 22px; max-width: 70ch; display: grid; gap: 6px; }
+  .note { background: var(--note); border: 1px solid var(--note-line); border-radius: 6px; padding: 12px 16px; font-size: 15px; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; display: grid; gap: 6px; }
+  .card h4 { margin: 0; font: 600 15px/1.3 var(--font-body); }
+  .card p { font-size: 14px; color: var(--muted); }
+  footer { border-top: 1px solid var(--line); padding: 24px 0 48px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: grid; gap: 8px; }
+  @media (max-width: 820px) {
+    .layout { grid-template-columns: 1fr; gap: 24px; }
+    nav.toc { position: static; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    nav.toc .sub { display: none; }
+  }
+</style>
+</head>
+<body>
+<header class="sitebar"><div class="in"><a class="logo" href="/">MTNATH</a><nav aria-label="Site"><a href="/">Home</a><a href="/instructions/">Instructions</a><a href="/methods/" aria-current="page">Methods</a><a href="/legal/">Legal</a><a href="/contact/">Contact</a></nav><a class="cta" href="https://app.mtnath.com">Open the app</a></div></header>
+<header class="top">
+  <div class="wrap">
+    <div class="kicker">MTNATH · Open methods</div>
+    <h1>How MTNATH calculates GAP, gut load and lab-test results</h1>
+    <p class="lede">These are the exact formulas and constants the MTNATH app uses for grade-adjusted pace, the gut (GI) distress model and the lab-test analysis. They are published so athletes, coaches and researchers can check them, reproduce them and help improve them.</p>
+    <div class="meta">
+      <span><b>App:</b> app.mtnath.com</span>
+      <span><b>Methods version:</b> race planner 1.7.1 · lab tests 1.1.0</span>
+      <span><b>Updated:</b> 16 Nov 2026</span>
+      <span><b>License:</b> CC BY 4.0 (share and adapt with attribution)</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <nav class="toc" aria-label="Contents">
+    <a href="#gap">1 · Grade-adjusted pace</a>
+    <a class="sub" href="#gap-general">General curve</a>
+    <a class="sub" href="#gap-own">Own GAP</a>
+    <a class="sub" href="#gap-test2">Test 2 protocol and fit</a>
+    <a href="#gut">2 · Gut model</a>
+    <a class="sub" href="#gut-burn">Energy and CHO burned</a>
+    <a class="sub" href="#gut-cap">Gut capacity</a>
+    <a class="sub" href="#gut-plan">Gut load and the plan</a>
+    <a class="sub" href="#gut-osmo">Water and osmolality</a>
+    <a class="sub" href="#gut-glyc">Liver and muscle glycogen</a>
+    <a href="#lab">3 · Lab tests</a>
+    <a class="sub" href="#lab-t1">Test 1: metabolic at 10 %</a>
+    <a class="sub" href="#lab-zones">Zones and fuel</a>
+    <a class="sub" href="#lab-t1b">Test 1b: Tymewear only</a>
+    <a href="#limits">4 · Limits and use</a>
+  </nav>
+
+  <main>
+    <!-- ================= GAP ================= -->
+    <section class="method" id="gap">
+      <header>
+        <span class="num">01</span>
+        <h2>Grade-adjusted pace (GAP)</h2>
+        <p>GAP turns the pace on a slope into the equivalent pace on the flat. MTNATH uses a general curve, or the athlete's own curve measured in Test 2.</p>
+      </header>
+
+      <div class="block" id="gap-general">
+        <h3>General curve</h3>
+        <p>The factor \(f(g)\) multiplies flat pace (time per km) at gradient \(g\) in %. Values between the points are interpolated linearly; gradients are clamped to ±45 %.</p>
+        <div class="formula">\[ \text{pace}(g) = \text{pace}_{\text{flat}} \times f(g), \qquad \text{GAP} = \frac{\text{pace}(g)}{f(g)} \]</div>
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Gradient %</th><th class="n">−45</th><th class="n">−30</th><th class="n">−25</th><th class="n">−20</th><th class="n">−15</th><th class="n">−10</th><th class="n">−8</th><th class="n">−6</th><th class="n">−4</th><th class="n">−2</th><th class="n">0</th></tr></thead>
+            <tbody><tr><td>f(g)</td><td class="n">2.096</td><td class="n">1.495</td><td class="n">1.273</td><td class="n">1.081</td><td class="n">0.941</td><td class="n">0.876</td><td class="n">0.876</td><td class="n">0.891</td><td class="n">0.918</td><td class="n">0.960</td><td class="n">1.000</td></tr></tbody>
+          </table>
+        </div>
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Gradient %</th><th class="n">2</th><th class="n">4</th><th class="n">6</th><th class="n">8</th><th class="n">10</th><th class="n">15</th><th class="n">20</th><th class="n">25</th><th class="n">30</th><th class="n">45</th></tr></thead>
+            <tbody><tr><td>f(g)</td><td class="n">1.055</td><td class="n">1.135</td><td class="n">1.228</td><td class="n">1.337</td><td class="n">1.459</td><td class="n">1.846</td><td class="n">2.297</td><td class="n">2.727</td><td class="n">3.158</td><td class="n">4.286</td></tr></tbody>
+          </table>
+        </div>
+        <p>Uphill reference curves of the same form as the own GAP below: Strava fit (Sci-DANI) \(a = 0.02869556,\ b = 0.001520768\); COROS 2025 \(a = 0.0270,\ b = 0.00139\).</p>
+      </div>
+
+      <div class="block" id="gap-own">
+        <h3>Own GAP</h3>
+        <p>Test 2 gives a quadratic for 0–20 % uphill. Downhill keeps the general curve, and above 20 % the general curve is scaled so it meets the athlete's value at 20 %.</p>
+        <div class="formula">\[ f_{\text{own}}(g) = 1 + a\,g + b\,g^{2} \quad (g \text{ in } \%) \]
+        \[ f(g) = \begin{cases} f_{\text{gen}}(g) & g \le 0 \\ \max\!\big(0.5,\ f_{\text{own}}(g)\big) & 0 < g \le 20 \\ f_{\text{gen}}(g)\,\dfrac{f_{\text{own}}(20)}{f_{\text{gen}}(20)} & g > 20 \end{cases} \]</div>
+      </div>
+
+      <div class="block" id="gap-test2">
+        <h3>Test 2 protocol and fit</h3>
+        <p>Treadmill, 4-minute stages, two speeds per gradient around a target heart rate. The flat reference speed \(v_0\) is chosen so the target HR sits between the two speeds; each gradient's speeds are \(v_0 / f(g)\) × 0.93 and × 1.07 (general curve).</p>
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Order</th><th>Gradient</th><th>Gait</th><th>Stages</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>0 %</td><td>run</td><td>low, high</td></tr>
+              <tr><td>2</td><td>10 %</td><td>run</td><td>low, high</td></tr>
+              <tr><td>3</td><td>20 %</td><td>run</td><td>low, high</td></tr>
+              <tr><td>4</td><td>20 %</td><td>walk</td><td>low, high</td></tr>
+              <tr><td>5</td><td>5 %</td><td>run</td><td>low, high</td></tr>
+              <tr><td>6</td><td>15 %</td><td>run</td><td>low, high</td></tr>
+              <tr><td>7</td><td>0 % (repeat)</td><td>run</td><td>low, high: for drift</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ol>
+          <li>Stage value = mean of the last 60 s of each stage.</li>
+          <li>Heart-rate drift \(d\) (bpm/min) from the repeated 0 % stages at the same speed; each stage is corrected to the start of the test:
+            <div class="formula">\[ d = \text{mean}\,\frac{HR_{\text{repeat}} - HR_{\text{first}}}{\Delta t_{\min}}, \qquad HR_c = HR - d \cdot t_{\min} \]</div></li>
+          <li>For each gradient and gait, a linear regression of \(HR_c\) on speed gives the iso-HR speed at the target HR:
+            <div class="formula">\[ HR_c = m\,v + c \;\Rightarrow\; v_g = \frac{HR_{\text{target}} - c}{m}, \qquad f(g) = \frac{v_0}{v_g} \]</div>
+            A target outside the measured HR range by more than 30 % of its span is flagged as extrapolated.</li>
+          <li>Least-squares fit of the running points, without intercept (f(0) = 1 by definition):
+            <div class="formula">\[ f(g) - 1 = a\,g + b\,g^{2} \]
+            \[ a = \frac{S_{gy} S_{g^4} - S_{g^2y} S_{g^3}}{S_{g^2} S_{g^4} - S_{g^3}^{2}}, \qquad b = \frac{S_{g^2} S_{g^2y} - S_{g^3} S_{gy}}{S_{g^2} S_{g^4} - S_{g^3}^{2}} \]</div>
+            where \(S_{g^k} = \sum g^k\), \(S_{g^k y} = \sum g^k (f - 1)\). The fit needs at least 3 points; RMSE is reported.</li>
+          <li>The same fit is repeated with Tymewear ventilation (VE, drift-corrected) as an independent second estimate.</li>
+          <li>Walk vs run at 20 %: \( \left(f_{\text{walk}}/f_{\text{run}} - 1\right) \times 100 \).</li>
+          <li>Cross-check with Test 1: energy cost at 10 % from Test 2 (VO₂ at target HR from Test 1's HR→VO₂ line, minus rest VO₂, divided by the 10 % iso-HR speed) must be within 5 % of Test 1's cost at 10 %. A warning is shown above 0.5 bpm/min of drift.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= GUT ================= -->
+    <section class="method" id="gut">
+      <header>
+        <span class="num">02</span>
+        <h2>Gut (GI) distress model</h2>
+        <p>For each climb and descent the model estimates how much carbohydrate (CHO) is burned, how much the gut can absorb under that effort, heat, altitude and impact, and plans intakes so the gut load stays under a chosen limit.</p>
+      </header>
+
+      <div class="block" id="gut-burn">
+        <h3>Energy cost and CHO burned</h3>
+        <p>Cost of running per metre on gradient \(G\) (as a fraction, 0.10 = 10 %), Minetti et al. polynomial, with a floor of 1.0 J/kg/m. Power uses body mass plus pack mass \(m\) and speed \(v\) in m/s.</p>
+        <div class="formula">\[ C_r(G) = \max\!\big(1.0,\ 155.4G^5 - 30.4G^4 - 43.3G^3 + 46.3G^2 + 19.5G + 3.6\big) \ \ \text{J/kg/m} \]
+        \[ P_{\text{kcal/h}} = \frac{m\, v\, C_r \cdot 3600}{4184} \]</div>
+        <p>Intensity \(I\) is the effort as a fraction, placed between the athlete's VT1 and VT2 (defaults 0.65 and 0.85). The CHO share of energy rises above VT1:</p>
+        <div class="formula">\[ s_{\text{CHO}} = \operatorname{clamp}\!\left(0.40 + 0.60 \left(\frac{I - VT_1}{VT_2 - VT_1}\right)^{1.5},\ 0.30,\ 1.0\right) \ \ (I > VT_1;\ \text{else } 0.40) \]
+        \[ \text{CHO burned (g/h)} = \frac{P_{\text{kcal/h}} \cdot s_{\text{CHO}}}{4.1} \]</div>
+      </div>
+
+      <div class="block" id="gut-cap">
+        <h3>Gut capacity</h3>
+        <p>Trained capacity \(C_{\max}\) (default 90 g/h, set by the athlete) is reduced by four factors:</p>
+        <div class="formula">\[ C = C_{\max}\ \varphi_{I}\ \varphi_{T}\ \varphi_{\text{alt}}\ \varphi_{\text{imp}} \]
+        \[ \varphi_{I} = \max\!\left(0.1,\ 1 - 0.70\left(\frac{I - VT_1}{1 - VT_1}\right)^{1.8}\right) \ (I > VT_1;\ \text{else } 1) \]
+        \[ \varphi_{T} = \max\!\big(0.1,\ 1 - 0.35\,\max(0,\ T_{\text{core}} - 38)^{1.4}\big) \]
+        \[ \varphi_{\text{alt}} = \max\!\big(0.2,\ 1 - 0.015\,\max(0,\ 98 - SpO_2)\big) \]
+        \[ \text{impact} = \operatorname{clamp}\!\left(\frac{v\,G^{2}}{4.0 \cdot 0.20^{2}},\ 0,\ 1\right) \text{ on descents, else } 0, \qquad \varphi_{\text{imp}} = 1 - 0.25\cdot\text{impact} \]</div>
+        <p>SpO₂ comes from the athlete's values at 1000, 2000, 3000 and 4000 m (98 % at sea level, interpolated); each section uses its highest point. Core temperature comes from the athlete's setting and the section's temperature.</p>
+        <div class="formula">\[ R_{GI} = \frac{\text{planned intake (g/h)}}{C} \qquad \begin{cases} R_{GI} < 0.85 & \text{safe} \\ 0.85 \le R_{GI} \le 1.0 & \text{high load} \\ R_{GI} > 1.0 & \text{overload} \end{cases} \]</div>
+      </div>
+
+      <div class="block" id="gut-plan">
+        <h3>Gut load and the nutrition plan</h3>
+        <p>The plan runs minute by minute over the race timing. Food enters a pending queue and is released into the gut pool; each minute the gut absorbs up to \(C/60\).</p>
+        <div class="grid2">
+          <div class="card"><h4>Gel &lt; 40 g CHO</h4><p>Into the gut at once.</p></div>
+          <div class="card"><h4>Gel ≥ 40 g CHO</h4><p>Sipped over 5 min with 150–250 ml water.</p></div>
+          <div class="card"><h4>Solid food</h4><p>Released over 25 min.</p></div>
+          <div class="card"><h4>Fat food</h4><p>Nuts, nut butter, cheese: released over 45 min.</p></div>
+        </div>
+        <div class="formula">\[ \text{absorbed}_t = \min\!\left(\text{pool}_t,\ \frac{C_t}{60}\right) \]
+        \[ \text{gut load} = \frac{\text{pool} + 0.5 \cdot \text{pending}}{0.5\, C} \quad \text{(share of what can be absorbed in the next 30 min)} \]</div>
+        <p>An intake is placed only where its peak gut load over the next 30 minutes stays at or under the plan's limit: <b>0.85</b> for the safe plan, <b>1.0</b> for the aggressive plan. Among the moments that fit, the earliest one on good terrain wins (not on a descent, before descents, lower on climbs). Each intake covers what was burned and not eaten plus the next 60 minutes of burn, up to the trained capacity.</p>
+      </div>
+
+      <div class="block" id="gut-osmo">
+        <h3>Stomach: water and osmolality</h3>
+        <p>An option per race (off by default). When it is on, a stomach sits in front of the gut pool above. It holds water \(V\) (ml), CHO and osmoles \(O\) (mOsm), so what is drunk with each intake, and how concentrated it is, changes how fast the carbs reach the gut.</p>
+        <p><b>Osmoles of a product.</b> From its osmolality if known (typed or the maker's label), else from its carb split and sodium:</p>
+        <div class="formula">\[ O = \text{osm}_{\text{mOsm/kg}} \cdot \frac{\text{water (g)}}{1000} \quad \text{or} \quad O = 5.6\,(\text{glucose} + \text{fructose}) + 2.9\,\text{sucrose} + 0.8\,\text{maltodextrin} + 0.087\,\text{Na}_{\text{mg}} \]</div>
+        <p>Carbs in grams; sodium counted with its anion. Without a known split: gels are glucose + fructose, drinks maltodextrin + fructose, solids half starch. Without a known water content: gels ≈ 0.6 g water per g CHO, solids 15 % of the serving, fat food 5 %.</p>
+        <p><b>Gastric emptying,</b> each minute a share \(q\) of the stomach (water, CHO and osmoles alike) moves on to the gut. It slows with osmolality above 300 mOsm/kg and with the same effort, heat, altitude and impact factors as gut capacity:</p>
+        <div class="formula">\[ \text{Osm} = \frac{O}{V/1000}, \qquad f_{\text{osm}} = \frac{1}{1 + \max(0,\ \text{Osm} - 300)/600} \]
+        \[ q = \min\!\left(1,\ \frac{\ln 2}{12\ \text{min}}\ f_{\text{osm}}\ \varphi_{I}\,\varphi_{T}\,\varphi_{\text{alt}}\,\varphi_{\text{imp}}\right) \]</div>
+        <p>Water empties with a 12-minute half-time at rest; at about 900 mOsm/kg it is half as fast.</p>
+        <p><b>Risk of an intake.</b> The largest of three ratios must stay at or under 1:</p>
+        <div class="formula">\[ R = \max\!\left(\frac{\text{gut load}}{LIM},\ \frac{\overline{\text{Osm}}_{10\,\text{min}}}{\text{Osm}_{\text{limit}}},\ \frac{V}{700\ \text{ml}\,(1 - 0.4\cdot\text{impact})}\right) \]</div>
+        <p>\(LIM\) is 0.85 (safe) or 1.0 (aggressive); the osmolality limit is the race's (default 600 mOsm/kg, range 300–1000), checked on the 10-minute average after the intake; the volume limit is 700 ml on the flat, less on steep, fast descents. An intake that does not fit is moved, a large gel may be sipped over 10 instead of 5 minutes, or the amount is capped.</p>
+        <p><b>Water advice.</b> Each intake gets water to dilute the stomach towards the race's target (default 300 mOsm/kg, range 250–600), where \(o_w\) is the osmoles per ml of what is drunk (the planned drink, or the sweat sodium):</p>
+        <div class="formula">\[ W = \min\!\left(\frac{O_{\text{stomach}} + O_{\text{food}} - \text{target}\cdot(V_{\text{stomach}} + V_{\text{food}})}{\text{target} - o_w},\ \text{room to } 700\ \text{ml},\ \text{water in the sweat plan}\right) \]</div>
+        <p>A third of \(W\) (at most 150 ml) is drunk in the 5 minutes before the intake and the rest in the 10 minutes after. The water is moved from the hydration plan (sips within ±20 minutes, then the next 30 minutes), never added, so total fluid stays the same.</p>
+        <div class="note">The stomach constants (12-min half-time, 300/600 slowing, 700 ml, 0.4 impact) are starting guesses, not yet calibrated against athletes. Hydrogel products get no osmolality benefit (factor 1) until there is data for one.</div>
+      </div>
+
+      <div class="block" id="gut-glyc">
+        <h3>Liver and muscle glycogen</h3>
+        <p>Minute by minute, with \(b\) = CHO burned (g/min), \(R_a\) = CHO absorbed, \(f\) = fructose share of what is absorbed, \(M\) and \(M_0\) = muscle glycogen now and at the start, \(h\) = hours elapsed.</p>
+        <div class="formula">\[ f_{bg} = 0.30 + 0.45\left(1 - \frac{M}{M_0}\right) \quad (\text{1 once muscles are empty}) \]
+        \[ R_d = b\, f_{bg} + 0.1, \qquad GNG = \frac{5 + 10\min(1,\ h/6)}{60}, \qquad \text{net} = R_a + GNG - R_d \]
+        \[ \text{net} < 0:\ \text{liver} \mathrel{-}= \min(\text{liver},\ -\text{net}) \]
+        \[ \text{net} \ge 0:\ \text{liver} \mathrel{+}= \text{net}\,(0.25 f + 0.03 (1 - f)), \qquad \text{muscle use} \ge 0.7 \times b\,(1 - f_{bg}) \]</div>
+        <p>The +0.1 g/min covers brain and other tissues (~6 g/h). Starting liver glycogen depends on pre-race meals: overnight fast ~50 g, light breakfast ~80 g, carb-rich dinner and breakfast ~110 g. Below 40 g the liver is getting low; below 20 g there is a risk of low blood sugar.</p>
+      </div>
+    </section>
+
+    <!-- ================= LAB ================= -->
+    <section class="method" id="lab">
+      <header>
+        <span class="num">03</span>
+        <h2>Lab tests</h2>
+        <p>Test 1 measures the metabolic cost of running at 10 % gradient with a metabolic cart, Tymewear and fingertip lactate. Test 1b repeats it with Tymewear only between cart tests. Test 2 is the GAP test above. All maths runs in the browser on the raw files.</p>
+      </header>
+
+      <div class="block" id="lab-t1">
+        <h3>Test 1: metabolic test at 10 %</h3>
+        <ul>
+          <li><b>Stage values:</b> mean of the last 60 s of each 4-minute stage; last 30 s of each 1-minute ramp step.</li>
+          <li><b>VO₂max:</b> highest 30 s mean. <b>HRmax:</b> highest 5 s mean.</li>
+          <li><b>VT2:</b> breakpoint of VE vs VCO₂ (two-segment linear fit with the smallest total squared error, breakpoint searched between 35 % and 95 % of the points).</li>
+          <li><b>VT1:</b> V-slope, breakpoint of VCO₂ vs VO₂ on the points below VT2. Both thresholds can be edited.</li>
+          <li><b>Lactate checks:</b> LT1 = baseline + 0.5 mmol/L; LT2 = modified Dmax (from the point before the first rise of ≥ 0.4 mmol/L, on a polynomial fit of up to 3rd degree).</li>
+        </ul>
+        <p>Energy cost at 10 %, from the stages below VT1 (rest VO₂ subtracted; gross VO₂ if there is no rest window):</p>
+        <div class="formula">\[ C_{10} = \operatorname{mean}\frac{VO_{2,\text{kg}} - VO_{2,\text{kg,rest}}}{v} \ \ \text{(ml/kg/m)}, \qquad \text{J/kg/m} = C_{10} \cdot \text{kcal/L}(RER) \cdot 4.184 \]
+        \[ \text{kcal/L}(RER) = 3.815 + 1.232\cdot \operatorname{clamp}(RER,\ 0.7,\ 1.0) \]</div>
+        <p>A line HR → VO₂ (stages up to VT2 + 2 %) is saved for Test 1b and for the Test 2 cross-check. Each zone's flat-equivalent speed is the treadmill speed at 10 % multiplied by \(f(10)\) (pace divided by \(f(10)\)).</p>
+      </div>
+
+      <div class="block" id="lab-zones">
+        <h3>Zones and fuel</h3>
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Zone</th><th>Heart rate</th><th>Reference HR for fuel</th></tr></thead>
+            <tbody>
+              <tr><td>Z1</td><td>70–90 % of HR at VT1</td><td>80 % of HR at VT1</td></tr>
+              <tr><td>Z2</td><td>90–100 % of HR at VT1</td><td>95 % of HR at VT1</td></tr>
+              <tr><td>Z3</td><td>VT1 to midpoint VT1–VT2</td><td>middle of the zone</td></tr>
+              <tr><td>Z4</td><td>Midpoint to VT2</td><td>middle of the zone</td></tr>
+              <tr><td>Z5</td><td>Above VT2</td><td>100 % CHO</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Fuel use from gas exchange (Jeukendrup &amp; Wallis 2005), VO₂ and VCO₂ in L/min, results in g/min:</p>
+        <div class="formula">\[ \text{CHO} = 4.210\,VCO_2 - 2.962\,VO_2, \qquad \text{fat} = 1.695\,VO_2 - 1.701\,VCO_2 \]
+        \[ \text{kcal/min} = 4.07\,\text{CHO} + 9.75\,\text{fat} \qquad (RER \ge 1:\ \text{kcal/min} = 5.05\,VO_2,\ \text{all CHO}) \]</div>
+      </div>
+
+      <div class="block" id="lab-t1b">
+        <h3>Test 1b: Tymewear only</h3>
+        <ul>
+          <li><b>VT1:</b> breakpoint of VE vs HR. <b>VT2:</b> breakpoint of breathing rate vs HR (the slope above must be at least 1.3× the slope below); lactate thresholds when samples were taken.</li>
+          <li>VO₂, kcal and fuel per zone are estimates carried from the reference cart Test 1: VO₂ from its HR → VO₂ line, CHO share from its zones.</li>
+          <li>Tymewear volumes are relative units. Test 1 converts them to litres with a line Tymewear VE → cart VE on the same day.</li>
+          <li><b>Scale check:</b> below VT1, VO₂ from Tymewear VE vs VO₂ from HR. A difference above 10 % (shirt fit or position) means VE-based numbers are not comparable, and HR-based estimates are used.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= LIMITS ================= -->
+    <section class="method" id="limits">
+      <header>
+        <span class="num">04</span>
+        <h2>Limits and use</h2>
+      </header>
+      <div class="note">These methods support training and race planning. They are models, not measurements: several constants (gut capacity factors, impact reference, stomach model) are informed estimates that still need validation. They are not medical advice.</div>
+      <ul>
+        <li>The app's numbers are tested against the original planner and lab-test code on fixed sample files, so the app and these formulas give the same results.</li>
+        <li>Corrections, data from your own tests and validation studies are welcome, especially on the gut capacity factors and on downhill impact.</li>
+        <li>Please cite as: <i>MTNATH Open Methods (race planner 1.7.1, lab tests 1.1.0), Kilian Jornet, mtnath.com, 2026.</i></li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>MTNATH · <a href="/">mtnath.com</a> · <a href="/instructions/">Instructions</a> · <a href="/legal/">Legal</a> · <a href="/contact/">Contact</a></span>
+    <span>Methods licensed CC BY 4.0. Fuel equations: Jeukendrup &amp; Wallis, Int J Sports Med 2005. Energy cost of gradient running: Minetti et al., J Appl Physiol 2002.</span>
+  </div>
+</footer>
+</body>
+</html>
