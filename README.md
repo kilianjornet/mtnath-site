@@ -18,8 +18,8 @@ vercel.json / _redirects                 Redirects from old WordPress URLs + hea
 ## Before going live
 
 1. **Fill the placeholders.** Search for `TODO` (they show highlighted in yellow on the Legal page):
-   - Legal: legal name / company and org. number, address, Supabase and Vercel regions,
-     sign-in email provider, backup and log retention, minimum age, price model, venue.
+   - Legal: the *Last updated* date, and confirm the transfer safeguard (Data Privacy Framework or
+     standard contractual clauses) for each provider outside the EEA.
    - Email: create `lab@mtnath.com` (the only address used on the site: Contact and Legal).
 2. **Have the Legal page checked.** It is a draft written from what the app does today
    (Supabase, Vercel, Anthropic for food and lab-report reading, COROS, Withings, Claude connector,
@@ -28,9 +28,9 @@ vercel.json / _redirects                 Redirects from old WordPress URLs + hea
 3. **Add old URLs to the redirects.** List the pages people link to on the current WordPress site
    (Search Console → Pages, or the WordPress Pages list) and add them to `vercel.json`
    (and `_redirects` if you use Cloudflare/Netlify).
-4. **Optional: self-host fonts and MathJax.** Today the pages load Google Fonts and MathJax from
-   jsDelivr; the privacy policy says so. Self-hosting removes those third-party requests — then
-   delete that paragraph in the policy.
+4. **Fonts and MathJax.** The pages still load Google Fonts and, on Methods, MathJax from jsDelivr.
+   The privacy policy no longer mentions this, so self-host them (download the files into `assets/`)
+   or switch to system fonts.
 
 ## Updating pages
 
