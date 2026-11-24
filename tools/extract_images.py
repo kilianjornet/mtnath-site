@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PAGES = [("/", "Home"), ("/instructions/", "Instructions"), ("/methods/", "Methods"),
-         ("/legal/", "Legal"), ("/contact/", "Contact")]
+         ("/legal/", "Legal")]
 EXT = {"jpeg": "jpg", "jpg": "jpg", "png": "png", "webp": "webp", "gif": "gif", "svg+xml": "svg"}
 
 
